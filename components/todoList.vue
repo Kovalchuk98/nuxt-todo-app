@@ -101,8 +101,8 @@ export default {
     return {
       date: '',
       time: '',
-      headerPic: ['wp_1.jpg', 'wp_2.jpg', 'wp_3.jpg', 'wp_4.jpg', 'wp_5.jpg'],
-      selectPic: 'wp_4.jpg',
+      headerPic: ['/images/wp_1.jpg', '/images/wp_2.jpg', '/images/wp_3.jpg', '/images/wp_4.jpg', '/images/wp_5.jpg'],
+      selectPic: '/images/wp_4.jpg',
       activeBtn: 0,
       completed: false
     }
