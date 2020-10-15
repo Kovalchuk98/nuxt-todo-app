@@ -24,7 +24,7 @@
         >
           <v-img
             class="rounded-circle"
-            :src="user.photoURL || '/no_avatar.png'"
+            :src="user.photoURL || '/images/no_avatar.png'"
             height="60"
             width="60"
             contain
@@ -80,7 +80,7 @@
       <nuxt-link class="d-flex" to="/" style="text-decoration: none; color: #fff;">
         <v-img
           class="rounded-circle mx-4"
-          src="/icon.svg"
+          src="/images/icon.svg"
           max-height="40"
           max-width="40"
           contain
@@ -101,7 +101,7 @@
           >
             <v-img
               class="rounded-circle"
-              :src="user.photoURL || 'no_avatar.png'"
+              :src="user.photoURL || '/images/no_avatar.png'"
               max-height="40"
               max-width="40"
               contain
