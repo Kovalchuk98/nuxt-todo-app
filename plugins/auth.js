@@ -8,7 +8,6 @@ const checkUserStatus = ({ store }) => new Promise((resolve, reject) => {
         email,
         displayName,
         photoURL
-        // emailVerified,
         // refreshToken
       } = user
       store.commit('auth/setUser', {
@@ -16,17 +15,9 @@ const checkUserStatus = ({ store }) => new Promise((resolve, reject) => {
         email,
         displayName,
         photoURL
-        // emailVerified,
         // refreshToken
       })
-      //  eslint-disable-next-line no-console
-      console.log(store.state.auth.user)
-      // eslint-disable-next-line no-console
-      // console.log(user)
     }
-    // } else {
-    //   store.commit('auth/setUser', user)
-    // }
     resolve(user)
   }, err => reject(err))
 })
