@@ -24,7 +24,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchFromDb ({ commit }) {
+  async fetchFromDb  ({ commit }) {
     try {
       await fireDb.ref('todos').child(`user_${fireAuth.currentUser.uid}`).on('value', (snap) => {
         const todos = []
