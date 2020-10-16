@@ -8,20 +8,89 @@
     <v-img
       class="img white--text align-end"
       height="200px"
+      :src="selectPic"
     >
       <span class="date">{{ date }}</span>
       <span class="time">{{ time }}</span>
+      <h5
+        v-if="leftTodos != lengthTodos"
+        class="left_counter"
+      >
+        {{ leftTodos }} of {{ lengthTodos }} tasks
+      </h5>
+      <h5
+        v-else
+        class="left_counter"
+      >
+        No active tasks
+      </h5>
     </v-img>
-
     <newTodoItem />
+    <h4
+      v-if="todos == false"
+      class="text-center py-4"
+    >
+      Sorry, you don't have tasks at this moment
+    </h4>
+    <!-- <div
+      v-else
+      class="item_list mt-2"
+    > -->
     <v-list
       class="item_list mt-2"
-    />
+    >
+      <transition-group name="fade" mode="out-in">
+        <todoItem
+          v-for="todo in todos"
+          :key="todo.id"
+          :todo="todo"
+        />
+      </transition-group>
+    </v-list>
+    <v-bottom-navigation
+      :value="activeBtn"
+      color="#00C853"
+      horizontal
+    >
+      <v-btn
+        @click="completed = false"
+      >
+        <span>All</span>
+        <v-icon>mdi-format-list-checks</v-icon>
+      </v-btn>
+      <v-btn
+        @click="completed = true"
+      >
+        <span>Completed</span>
+        <v-icon>mdi-bookmark-check-outline</v-icon>
+      </v-btn>
+      <v-spacer />
+      <v-btn
+        v-if="completed"
+        @click="removeCompleted"
+      >
+        <span>Clear</span>
+        <v-icon>mdi-cancel</v-icon>
+      </v-btn>
+      <v-btn
+        v-else
+        @click="removeAll"
+      >
+        <span>Clear All</span>
+        <v-icon>mdi-cancel</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
   </v-card>
 </template>
 
 <script>
+import newTodoItem from '@/components/newTodoItem.vue'
+import todoItem from '@/components/todoItem.vue'
 export default {
+  components: {
+    newTodoItem,
+    todoItem
+  },
   // async fetch ({ store }) {
   //   await store.dispatch('todos/fetchFromDb')
   // },
@@ -32,19 +101,38 @@ export default {
     return {
       date: '',
       time: '',
-      headerPic: ['wp_1.jpg', 'wp_2.jpg', 'wp_3.jpg', 'wp_4.jpg', 'wp_5.jpg'],
-      selectPic: 'wp_4.jpg',
+      headerPic: ['/images/wp_1.jpg', '/images/wp_2.jpg', '/images/wp_3.jpg', '/images/wp_4.jpg', '/images/wp_5.jpg'],
+      selectPic: '/images/wp_4.jpg',
       activeBtn: 0,
       completed: false
     }
   },
   computed: {
-    created () {
-      return this.getTime()
+    todos () {
+      return !this.completed ? this.$store.state.todos.list : this.$store.state.todos.list.filter(item => item.completed)
+      // const todoList = this.$store.state.todos.list
+      // todoList.slice()
+      // todoList.sort((a, b) => a.due - b.due)
+      // return todoList
     },
-    beforeDestroy () {
-      return clearInterval(this.getTime())
+    lengthTodos () {
+      return this.$store.state.todos.list.length
+    },
+    leftTodos () {
+      return this.$store.state.todos.list.filter(item => item.completed).length
+    },
+    boolTodo () {
+      return this.$store.getters['todos/todos']
     }
+  },
+  // beforeMount () {
+  //   this.$store.dispatch('todos/fetchFromDb')
+  // },
+  created () {
+    return this.getTime()
+  },
+  beforeDestroy () {
+    return clearInterval(this.getTime())
   },
   methods: {
     getTime () {
@@ -56,6 +144,18 @@ export default {
         this.date = day
         this.time = time
       }, 1000)
+    },
+    getRandomPic (items) {
+      setInterval(() => {
+        const nump = Math.floor(Math.random() * items.length)
+        this.selectPic = items[nump]
+      }, 300000)
+    },
+    removeCompleted () {
+      this.$store.dispatch('todos/removeCompleteTasks')
+    },
+    removeAll () {
+      this.$store.dispatch('todos/removeAll')
     }
   }
 }
@@ -104,5 +204,11 @@ export default {
         max-height: 40vh;
         overflow-y: auto;
       }
+    .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+    }
+  .fade-enter, .fade-leave-to{
+    opacity: 0;
+  }
 
 </style>

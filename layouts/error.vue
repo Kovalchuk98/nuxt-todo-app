@@ -1,6 +1,11 @@
 <template>
   <v-app dark>
-    <h1>{{ pageNotFound }}</h1>
+    <v-flex class="d-flex flex-column justify-center align-center">
+      <h1>{{ pageNotFound }}</h1>
+      <nuxt-link to="/" style="color: #fff;">
+        Back to Home Page
+      </nuxt-link>
+    </v-flex>
   </v-app>
 </template>
 
@@ -26,7 +31,7 @@ export default {
 
 <style scoped>
 h1 {
-  font-size: 20px;
+  font-size: 40px;
   color: white;
 }
 </style>
