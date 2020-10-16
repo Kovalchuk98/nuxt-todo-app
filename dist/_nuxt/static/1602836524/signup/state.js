@@ -1,1 +1,0 @@
-window.__NUXT__=(function(a){return {staticAssetsBase:"\u002F_nuxt\u002Fstatic\u002F1602836524",layout:"default",error:a,state:{auth:{user:a,loading:false,error:a},todos:{list:[],incrementId:1}},serverRendered:true,routePath:"\u002Fsignup",config:{}}}(null));

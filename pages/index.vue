@@ -23,8 +23,8 @@ export default {
   components: {
     todoList
   },
-  async fetch () {
-    await this.$store.dispatch('todos/fetchFromDb')
+  fetch () {
+    this.$store.dispatch('todos/fetchFromDb')
   },
   middleware: 'auth'
 }
